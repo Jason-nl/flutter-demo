@@ -1,0 +1,10 @@
+name: learn_dart
+description: 小白的开发之路
+version: 1.0.0
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+dependencies: 
+  intl: ^0.17.0
+# 安装包命令：dart pub add intl
+# 升级包命令：dart pub upgrade intl
+# 升级到主要版本：dart pub upgrade --major-versions
