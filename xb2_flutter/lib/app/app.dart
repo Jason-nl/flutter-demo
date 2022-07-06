@@ -1,7 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:xb2_flutter/app/components/app_page_aside.dart';
+import 'package:xb2_flutter/app/theme/app_theme.dart';
 
-class App extends StatelessWidget {
+import 'components/app_floating_action_button.dart';
+import 'components/app_page_bottom.dart';
+import 'components/app_page_header.dart';
+import 'components/app_page_main.dart';
+
+class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  // 底部导航栏当前项目
+  int currentAppBottomNavigationBarItem = 0;
+
+  // 是否显示应用栏
+  bool showAppBar = true;
+
+  // 点击底部导航栏事件处理
+  void onTapAppBottomNavigationBarItem(int index) {
+    setState(() {
+      currentAppBottomNavigationBarItem = index;
+      showAppBar = index == 0;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        debugShowCheckedModeBanner: false,
+        // 构建Material风格的页面Scaffold
+        home: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            // 设置页面顶部的应用栏AppBar
+            appBar: showAppBar ? const AppPageHeader() : null,
+            backgroundColor: Colors.amber,
+            // 标签视图TabBarView配合上方标签栏AppBar的TabBar使用
+            body: AppPageMain(currentIndex: currentAppBottomNavigationBarItem),
+            bottomNavigationBar: AppPageBottom(
+              onTap: onTapAppBottomNavigationBarItem,
+              currentIndex: currentAppBottomNavigationBarItem,
+            ),
+            floatingActionButton: const AppFloatingActionButton(),
+            drawer: const AppPageAside(),
+          ),
+        ));
+  }
+
+  void printName() {
+    print('Leif');
+  }
+}
+
+Widget elevatedButton(printName) {
+  return ElevatedButton(onPressed: printName, child: const Text('Leif'));
+}
+
+class Decoration extends StatelessWidget {
+  const Decoration({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
